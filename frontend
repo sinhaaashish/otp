@@ -1,0 +1,47 @@
+from tkinter import *
+import app
+from tkinter import messagebox
+
+
+root = Tk()
+root.geometry("1000x700")
+
+frame2 = Frame(root, width=500, height=150, bg="light blue")
+frame2.pack(side=TOP)
+
+frame1 = Frame(root, width=500, height=500, bg="light blue")
+frame1.pack(side=TOP)
+
+
+l1 = Label(frame1, text="Enter your email", font=("Arial", 15), bg="light blue", fg="green")
+l1.place(x=170, y=50)
+
+e1 = Entry(frame1, width=50, font=("Arial", 15))
+e1.place(x=100, y=90, height=40, width=300)
+def send_email(e):
+   email = e1.get()
+   app.send(email)
+   
+b1 = Button(frame1, text="Send otp", bg="light green", width=13, height=2)
+b1.place(x=200, y=160)
+b1.bind("<Button>", send_email)
+
+l1 = Label(frame1, text="Enter your OTP", font=("Arial", 12), bg="light blue", fg="green")
+l1.place(x=190, y=280)
+
+e2 = Entry(frame1, font=("Arial", 15), width=10)
+e2.place(x=190, y=330)
+
+def verify(e):
+   otp =e2.get()
+   res = app.verify_otp(otp)
+   if(res == 1):
+      messagebox.showinfo("showinfo", "EmailId is varified successFully")
+   else:
+      messagebox.showerror("showerror", "please enter valid OTP")
+
+b2 = Button(frame1, text="Verify", bg="light green", width=7, height=1)
+b2.place(x=220, y=390)
+b2.bind("<Button-1>", verify)
+
+root.mainloop()
